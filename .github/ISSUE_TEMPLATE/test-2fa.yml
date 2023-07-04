@@ -33,6 +33,6 @@ body:
     attributes:
       label: Confirm the following before submitting the 2fa request
       options:
-        - label: "[How to reconfigure 2fa](www.google.com)"
+        - label: "[How to reconfigure 2fa] (www.google.com)"
           required: true
 
