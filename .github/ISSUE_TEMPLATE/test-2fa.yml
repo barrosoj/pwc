@@ -14,15 +14,13 @@ body:
         Note that execution of this request is pending on administrator approvals. You will know that you have been added to the group when the issue has been closed.
         After being added to the group, configure 2FA in your GCP account right away.
         Every night, members that have been in the group for more than 72 hours will be deleted.
-
-        - [How to reconfigure 2FA](www.google.com)❓
   
   - type: checkboxes
     id: confirmation
     attributes:
       label: Confirm the following before submitting the 2fa request
       options:
-        - label: "[How to reconfigure 2fa](www.google.com)"
+        - label: "[How to reconfigure 2fa](www.google.com)❓"
           required: true
 
   - type: input
