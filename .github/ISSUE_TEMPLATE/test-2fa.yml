@@ -15,7 +15,15 @@ body:
         After being added to the group, configure 2FA in your GCP account right away.
         Every night, members that have been in the group for more than 72 hours will be deleted.
 
-        - [How to reconfigure 2FA](www.google.com)❓
+        - [How to reconfigure 2FA](https://nostechnology.sharepoint.com/sites/TEAM_InnovationServices_CloudGuild/_layouts/15/Doc.aspx?sourcedoc=%7be3956890-ec70-438c-84e1-90971584b232%7d&action=edit&wd=target%28GCP%20%E2%98%81.one%7C7a3d1ec4-4ec3-48fc-b9a8-cdce66b4a6e4%2FI%20can%27t%20access%20GCP.%20What%20can%20I%20%7Ca1ec27f7-21d5-466c-ae58-8bf093e49aed%2F%29&wdorigin=703)❓
+  
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirm the following before submitting the 2fa request
+      options:
+      - Follow for 2fa reconfiguration
+      - Lalalala
 
   - type: input
     id: email
