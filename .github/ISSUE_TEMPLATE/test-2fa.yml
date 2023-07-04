@@ -22,8 +22,8 @@ body:
     attributes:
       label: Confirm the following before submitting the 2fa request
       options:
-      - Follow for 2fa reconfiguration
-      - Lalalala
+        - label: 'Mandatory'
+          required: false
 
   - type: input
     id: email
