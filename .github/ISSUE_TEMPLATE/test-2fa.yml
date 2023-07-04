@@ -32,6 +32,6 @@ body:
     attributes:
       label: "Confirm the following before submitting the 2FA request"
       options:
-        - label: "I confirm that I have read and understood [How to reconfigure 2FA](https://www.google.com)"
+        - label: "I confirm that I have read and understood [how to reconfigure 2FA](https://www.google.com)"
           required: true
 
