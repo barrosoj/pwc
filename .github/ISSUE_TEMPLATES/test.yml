@@ -1,0 +1,41 @@
+name: 🔐Request to reconfigure FA (second factor authentication)
+title: "[Add to 2FA Exception List]: <user-email>"
+description: Request to be temporarily added to an exception group that allows the user to reconfigure 2FA (requirement for logging in on GCP).
+labels:
+  - 2fa-request
+  - priority/urgent
+  - triage/accepted
+  - kind/client-request
+#assignees:
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Note that execution of this request is pending on administrator approvals. You will know that you have been added to the group when the issue has been closed.
+        After being added to the group, configure 2FA in your GCP account right away.
+        Every night, members that have been in the group for more than 72 hours will be deleted.
+
+        - [How to reconfigure 2FA](https://nostechnology.sharepoint.com/sites/TEAM_InnovationServices_CloudGuild/_layouts/15/Doc.aspx?sourcedoc=%7be3956890-ec70-438c-84e1-90971584b232%7d&action=edit&wd=target%28GCP%20%E2%98%81.one%7C7a3d1ec4-4ec3-48fc-b9a8-cdce66b4a6e4%2FI%20can%27t%20access%20GCP.%20What%20can%20I%20%7Ca1ec27f7-21d5-466c-ae58-8bf093e49aed%2F%29&wdorigin=703)❓
+  
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirm the following before submitting the 2fa request
+      options:
+      - Follow for 2fa reconfiguration
+      - Lalalala
+
+  - type: input
+    id: email
+    attributes:
+      label: GCP Email Address
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Provide some context regarding this request.
+    validations:
+      required: false
