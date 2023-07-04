@@ -20,7 +20,6 @@ body:
       label: GCP Email Address
     validations:
       required: true
-
   - type: textarea
     id: additional-information
     attributes:
@@ -31,8 +30,8 @@ body:
   - type: checkboxes
     id: confirmation
     attributes:
-      label: Confirm the following before submitting the 2fa request
+      label: "Confirm the following before submitting the 2FA request"
       options:
-        - label: "Follow -> [How to reconfigure 2fa](www.google.com)"
+        - label: "I confirm that I have read and understood [How to reconfigure 2FA](https://www.google.com)"
           required: true
 
