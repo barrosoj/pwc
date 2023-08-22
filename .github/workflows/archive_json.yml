@@ -4,11 +4,14 @@ on:
   workflow_dispatch:
   
 jobs:
-  build:
-    name: stale repo identifier
+  archive:
+    name: Archive Repositories
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
     - name: Run stale_repos tool
       id: stale-repos
       uses: github/stale-repos@v1
@@ -18,24 +21,15 @@ jobs:
 
     - name: Print output of stale_repos tool
       run: |
+        echo "${{ steps.stale-repos.outputs.stale_repos }}" > stale_repos.json
+        cat stale_repos.json
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
-
-  archive:
-    name: Archive Repository
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Read URLs from file
-        id: read-urls
-        run: |
-          mapfile -t urls < urls.txt
-          echo "::set-output name=urls::${urls[*]}"
       
-      - name: Archive repositories
-        run: |
-          for url in "${{ steps.read-urls.outputs.urls }}"; do
-            gh repo archive -y "$url"
-          done
-        env:
-          GH_TOKEN: ${{ secrets.ARCHIVE }}
+    - name: Archive repositories
+      run: |
+        while IFS= read -r url; do
+          gh repo archive -y "$url"
+        done < urls.txt
+      env:
+        GH_TOKEN: ${{ secrets.ARCHIVE }}
