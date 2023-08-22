@@ -17,17 +17,4 @@ jobs:
         INACTIVE_DAYS: 30
 
     - name: Print output of stale_repos tool
-      run: echo "${{ steps.stale-repos.outputs.inactiveRepos }}"
-    - uses: actions/github-script@v6
-      with:
-        script: |
-          const repos = ${{ steps.stale-repos.outputs.inactiveRepos }}
-          for (const repo of repos) {
-            console.log(repo);
-            const issue = await github.rest.issues.create({
-              title: 'Stale repo' + repo.url,
-              body: 'This repo is stale. Please contact the owner to make it active again.',
-            });
-            console.log(issue);
-          }
-        github-token: ${{ secrets.ARCHIVE }}
+      run: echo "${{ steps.stale-repos.outputs.inactiveRepos.url }}"
