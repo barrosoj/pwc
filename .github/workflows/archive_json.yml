@@ -18,6 +18,5 @@ jobs:
 
     - name: Print output of stale_repos tool
       run: |
-        cat stale_repos.json
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
