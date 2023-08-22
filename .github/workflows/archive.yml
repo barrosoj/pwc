@@ -5,6 +5,6 @@ jobs:
  archive:
     runs-on: ubuntu-latest
     steps:
-      - run: gh repo archive https://github.com/barrosoj/pythonProj
+      - run: gh repo archive -y https://github.com/barrosoj/pythonProj
         env:
           GH_TOKEN: ${{ secrets.ARCHIVE }}
