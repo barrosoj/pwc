@@ -18,7 +18,6 @@ jobs:
 
     - name: Print output of stale_repos tool
       run: |
-        echo "${{ steps.stale-repos.outputs.stale_repos }}" > stale_repos.json
         cat stale_repos.json
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
