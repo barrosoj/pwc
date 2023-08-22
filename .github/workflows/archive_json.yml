@@ -17,4 +17,4 @@ jobs:
         INACTIVE_DAYS: 30
 
     - name: Print output of stale_repos tool
-      run: echo "${{ steps.stale-repos.outputs.inactiveRepos.url }}"
+      run: echo "${{ steps.stale-repos.outputs.inactiveRepos.*.url }}"
