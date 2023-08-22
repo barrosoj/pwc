@@ -5,4 +5,4 @@ jobs:
  archive:
     runs-on: ubuntu-latest
     steps:
-      - run: gh repo acrhive https://github.com/barrosoj/pythonProj
+      - run: gh repo archive https://github.com/barrosoj/pythonProj
