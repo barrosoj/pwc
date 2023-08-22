@@ -6,3 +6,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: gh repo archive https://github.com/barrosoj/pythonProj
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
