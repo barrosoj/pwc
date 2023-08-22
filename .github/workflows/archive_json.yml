@@ -1,4 +1,4 @@
-name: stale repo identifier
+name: stale repo identifier and archive
 
 on:
   workflow_dispatch:
@@ -20,3 +20,22 @@ jobs:
       run: |
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
+
+  archive:
+    name: Archive Repository
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read URLs from file
+        id: read-urls
+        run: |
+          mapfile -t urls < urls.txt
+          echo "::set-output name=urls::${urls[*]}"
+      
+      - name: Archive repositories
+        run: |
+          for url in "${{ steps.read-urls.outputs.urls }}"; do
+            gh repo archive -y "$url"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.ARCHIVE }}
