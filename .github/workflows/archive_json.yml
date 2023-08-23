@@ -7,9 +7,7 @@ jobs:
   identify-stale:
     name: Identify Stale Repositories
     runs-on: ubuntu-latest
-    outputs:
-      stale-repo: ${{ steps.print-stale }}
-      
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -27,6 +25,11 @@ jobs:
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
 
+    - name: Set output URL
+      id: set-output
+      run: |
+        echo "::set-output name=stale-repo::$(cat urls.txt)"
+
   archive-repos:
     name: Archive Stale Repositories
     runs-on: ubuntu-latest
@@ -36,13 +39,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Read URLs from stale_repos.json
-      run: echo ${{ needs.identify-stale.outputs.stale-repo.url }} >> urls.txt
+    - name: Read URLs from stale-repos.json
+      run: echo ${{ needs.identify-stale.outputs['stale-repo'] }} >> urls.txt
       
-    #- name: Archive repositories
-     # run: |
-      #  while IFS= read -r url; do
-       #   gh repo archive -y "$url"
-        #done < urls.txt
+  #  - name: Archive repositories
+   #   run: |
+    #    while IFS= read -r url; do
+     #     gh repo archive -y "$url"
+      #  done < urls.txt
       #env:
-      #  GH_TOKEN: ${{ secrets.ARCHIVE }}
+       # GH_TOKEN: ${{ secrets.ARCHIVE }}
