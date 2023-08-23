@@ -42,8 +42,7 @@ jobs:
       
     - name: Archive repositories 
       run: |
-         "${{needs.identify-stale.outputs.repos}}" > url.txt
-         cat url.txt
+         "${{needs.identify-stale.outputs.repos}}"
     #    while IFS= read -r url; do
      #     gh repo archive -y "$url"
       #  done < urls.txt
