@@ -21,14 +21,9 @@ jobs:
         
     - name: Print output of stale_repos tool
       id: print-stale
-      run: |
+      run: echo" |
         jq -r '.[] | .url' stale_repos.json > urls.txt
-        cat urls.txt
-
-    - name: Set output URL
-      id: set-output
-      run: |
-        echo "::set-output name=stale-repo::$(cat urls.txt)"
+        cat urls.txt" >> "$GITHUB_OUTPUT"
 
   archive-repos:
     name: Archive Stale Repositories
@@ -40,7 +35,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Read URLs from stale-repos.json
-      run: echo ${{ needs.identify-stale.outputs['stale-repo'] }}
+      run: echo ${{ steps.print-stale.outputs }}
       
   #  - name: Archive repositories
    #   run: |
