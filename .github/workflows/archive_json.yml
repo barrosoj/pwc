@@ -8,7 +8,7 @@ jobs:
     name: Identify Stale Repositories
     runs-on: ubuntu-latest
     outputs:
-      stale-repo: ${{ steps.stale-repos.outputs.url }}
+      stale-repo: ${{ steps.stale-repos.outputs }}
       
     steps:
     - name: Checkout repository
@@ -39,10 +39,10 @@ jobs:
     - name: Read URLs from stale_repos.json
       run: echo ${{ needs.identify-stale.outputs.stale-repo }} >> urls.txt
       
-    - name: Archive repositories
-      run: |
-        while IFS= read -r url; do
-          gh repo archive -y "$url"
-        done < urls.txt
-      env:
-        GH_TOKEN: ${{ secrets.ARCHIVE }}
+    #- name: Archive repositories
+     # run: |
+      #  while IFS= read -r url; do
+       #   gh repo archive -y "$url"
+        #done < urls.txt
+      #env:
+      #  GH_TOKEN: ${{ secrets.ARCHIVE }}
