@@ -23,7 +23,7 @@ jobs:
       id: print-stale
       run: |
         jq -r '.[] | .url' stale_repos.json > urls.txt
-        echo cat urls.txt >> $GITHUB_STEP_SUMMARY
+        cat urls.txt >> $GITHUB_STEP_SUMMARY
 
         
 #  archive-repos:
