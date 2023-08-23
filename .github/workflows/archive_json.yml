@@ -36,8 +36,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Read URLs from stale-repos.json
-      run: echo ${{ needs.identify-stale.outputs['stale-repo'] }} >> urls.txt
+    - name: Read URLs from stale_repos.json
+      run: echo ${{ needs.identify-stale.outputs.stale-repo.url }} >> urls.txt
       
     #- name: Archive repositories
      # run: |
