@@ -42,7 +42,9 @@ jobs:
       
     - name: Archive repositories 
       run: |
-        gh repo archive -y ${{needs.identify-stale.outputs.repos}}
+        while IFS= read -r url; do
+        gh repo archive -y "$url"
+        done < ${{needs.identify-stale.outputs.repos}}
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
     #    while IFS= read -r url; do
