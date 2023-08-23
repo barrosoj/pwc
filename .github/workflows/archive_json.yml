@@ -19,9 +19,8 @@ jobs:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
         
-    - name: Print output of stale_repos tool
-      id: print-stale
-      run: echo "stale_repos.json" >> "$GITHUB_OUTPUT"
+    - name: Set stale_repos.json output
+      run: echo "${{ steps.stale-repos.outputs.url }}" >> $GITHUB_ENV
 
   archive-repos:
     name: Archive Stale Repositories
@@ -33,7 +32,8 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Read URLs from stale-repos.json
-      run: echo ${{ steps.print-stale.outputs }}
+      run: echo ${{ env.stale_repos_json }}  # This is what you saved in the previous step
+
       
   #  - name: Archive repositories
    #   run: |
