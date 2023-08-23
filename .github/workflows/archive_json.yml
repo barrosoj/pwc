@@ -21,7 +21,7 @@ jobs:
         
     - name: Print output of stale_repos tool
       id: print-stale
-      run: echo "stale_repos.json " >> "$GITHUB_OUTPUT"
+      run: echo "stale_repos.json" >> "$GITHUB_OUTPUT"
 
   archive-repos:
     name: Archive Stale Repositories
