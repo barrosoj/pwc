@@ -43,10 +43,6 @@ jobs:
     needs: identify-stale
 
     steps:
-    #- name: Checkout repository
-     # uses: actions/checkout@v2
-
-      
     - name: Archive repositories 
       run: |
         echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
@@ -56,8 +52,4 @@ jobs:
         
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
-    #    while IFS= read -r url; do
-     #     gh repo archive -y "$url"
-      #  done < urls.txt
-      #env:
-       # GH_TOKEN: ${{ secrets.ARCHIVE }}
+
