@@ -23,20 +23,20 @@ jobs:
       id: print-stale
       run: |
         jq -r '.[]' stale_repos.json >> $GITHUB_ENV
-        cat $GITHUB_ENV
         
-#  archive-repos:
- #   name: Archive Stale Repositories
-  #  runs-on: ubuntu-latest
-   # needs: identify-stale
+  archive-repos:
+    name: Archive Stale Repositories
+    runs-on: ubuntu-latest
+    needs: identify-stale
 
-    #steps:
+    steps:
     #- name: Checkout repository
      # uses: actions/checkout@v2
 
       
-  #  - name: Archive repositories
-   #   run: |
+    - name: Archive repositories
+      run: |
+        cat $GITHUB_ENV
     #    while IFS= read -r url; do
      #     gh repo archive -y "$url"
       #  done < urls.txt
