@@ -41,7 +41,7 @@ jobs:
     - name: Archive repositories
       env:
         repos-url: ${{ steps.print-stale.outputs }}
-      run: echo $repos-url
+      run: echo "$repos-url"
     #    while IFS= read -r url; do
      #     gh repo archive -y "$url"
       #  done < urls.txt
