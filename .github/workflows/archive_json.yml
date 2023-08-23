@@ -23,11 +23,8 @@ jobs:
       id: print-stale
       run: |
         {
-        jq -r '.[]' stale_repos.json
-        }
-        
-    outputs:
-        repos-url: ${{ steps.print-stale.url.*}}
+        jq -r '.[]' stale_repos.json.url
+        } >> "$GITHUB_OUTPUT"
         
   archive-repos:
     name: Archive Stale Repositories
