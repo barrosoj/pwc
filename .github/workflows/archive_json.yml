@@ -2,10 +2,10 @@ name: stale repo identifier and archive
 
 on:
   workflow_dispatch:
-  
+
 jobs:
-  archive:
-    name: Archive Repositories
+  identify-stale:
+    name: Identify Stale Repositories
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +22,20 @@ jobs:
     - name: Print output of stale_repos tool
       run: |
         jq -r '.[] | .url' stale_repos.json > urls.txt
+        cat urls.txt
+
+  archive-repos:
+    name: Archive Stale Repositories
+    runs-on: ubuntu-latest
+    needs: identify-stale
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Read URLs from previous step
+      run: |
+        jq -r '.[] | .url' identify-stale/stale_repos.json > urls.txt
         cat urls.txt
       
     - name: Archive repositories
