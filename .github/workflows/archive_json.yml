@@ -1,4 +1,4 @@
-name: stale repo identifier and archive
+name: Stale Repos
 
 on:
   workflow_dispatch:
@@ -21,8 +21,12 @@ jobs:
 
     - name: Print output of stale_repos tool
       run: |
+        echo "${{ steps.stale-repos.outputs.stale_repos }}" > stale_repos.json
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
+      id: print-output
+    outputs:
+      stale_repos: ${{ steps.stale-repos.outputs.stale_repos }}
 
   archive-repos:
     name: Archive Stale Repositories
@@ -33,9 +37,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Download stale_repos.json
+      uses: actions/download-artifact@v2
+      with:
+        name: identify-stale
+        path: .
+
     - name: Read URLs from previous step
       run: |
-        jq -r '.[] | .url' identify-stale/stale_repos.json > urls.txt
+        jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
       
     - name: Archive repositories
