@@ -23,9 +23,7 @@ jobs:
       id: print-stale
       run: |
         {
-        echo 'JSON<<EOF'
         jq -r '.[]' stale_repos.json
-        echo EOF
         }
         
     outputs:
