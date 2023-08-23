@@ -24,7 +24,7 @@ jobs:
       run: |
         {
         echo 'REPOS<<EOF'
-        jq -r '.[]' stale_repos.json.url
+        jq -r '.[]' stale_repos.json
         echo EOF
         } >> "$GITHUB_OUTPUT"
         
