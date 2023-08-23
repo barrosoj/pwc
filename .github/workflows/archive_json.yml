@@ -22,7 +22,7 @@ jobs:
     - name: Print output of stale_repos tool
       id: print-stale
       run: |
-        jq -r '.[] |' stale_repos.json > urls.txt
+        jq -r '.[]' stale_repos.json > urls.txt
         cat urls.txt >> $GITHUB_OUTPUT
 
         
