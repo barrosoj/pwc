@@ -22,7 +22,11 @@ jobs:
     - name: Print output of stale_repos tool
       id: print-stale
       run: |
-        jq -r '.[]' stale_repos.json >> $GITHUB_ENV
+        {
+        echo 'JSON_RESPONSE<<EOF'
+        jq -r '.[]' stale_repos.json
+        echo EOF
+        } >> "$GITHUB_ENV"
         
   archive-repos:
     name: Archive Stale Repositories
