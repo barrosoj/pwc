@@ -1,4 +1,4 @@
-name: stale repo identifier and archive
+name: Stale Repos
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
       run: |
         {
         echo 'REPOS<<EOF'
-        jq -r '.[]' stale_repos.json
+        jq -r '.[] | .url' stale_repos.json
         echo EOF
         } >> "$GITHUB_OUTPUT"
         
