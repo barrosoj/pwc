@@ -29,6 +29,13 @@ jobs:
         jq -r '.[] | .url' stale_repos.json
         echo EOF
         } >> "$GITHUB_OUTPUT"
+
+    - name: Create issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Stale repository report
+        content-filepath: ./stale_repos.md
+        token: ${{ secrets.ARCHIVE }}
         
   archive-repos:
     name: Archive Stale Repositories
