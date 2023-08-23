@@ -1,4 +1,4 @@
-name: Stale Repos
+name: stale repo identifier and archive
 
 on:
   workflow_dispatch:
@@ -19,13 +19,11 @@ jobs:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
 
-    - name: Print output of stale_repos tool
-      run: |
-        jq -r '.[] | .url' stale_repos.json > urls.txt
-        cat urls.txt
-      id: print-output
-    outputs:
-      stale_repos: ${{ steps.stale-repos.outputs.stale_repos }}
+    - name: Save stale_repos.json as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: stale-repos
+        path: stale_repos.json
 
   archive-repos:
     name: Archive Stale Repositories
@@ -36,13 +34,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Download stale_repos.json
+    - name: Download stale_repos.json artifact
       uses: actions/download-artifact@v2
       with:
-        name: identify-stale
+        name: stale-repos
         path: .
 
-    - name: Read URLs from previous step
+    - name: Read URLs from stale_repos.json
       run: |
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
