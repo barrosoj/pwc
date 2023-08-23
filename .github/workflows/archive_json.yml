@@ -23,7 +23,9 @@ jobs:
       id: print-stale
       run: |
         {
+        echo 'REPOS<<EOF'
         jq -r '.[]' stale_repos.json.url
+        echo EOF
         } >> "$GITHUB_OUTPUT"
         
   archive-repos:
