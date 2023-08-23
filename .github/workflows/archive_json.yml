@@ -7,7 +7,9 @@ jobs:
   identify-stale:
     name: Identify Stale Repositories
     runs-on: ubuntu-latest
-
+    outputs:
+      stale-repo: ${{ steps.stale-repos.outputs.url }}
+      
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -18,13 +20,13 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
-
-    - name: Save stale_repos.json as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: stale-repos
-        path: stale_repos.json
-
+        
+    - name: Print output of stale_repos tool
+      run: |
+        jq -r '.[] | .url' stale_repos.json > urls.txt
+        cat urls.txt
+      id: print-output
+      
   archive-repos:
     name: Archive Stale Repositories
     runs-on: ubuntu-latest
@@ -34,16 +36,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Download stale_repos.json artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: stale-repos
-        path: .
-
     - name: Read URLs from stale_repos.json
-      run: |
-        jq -r '.[] | .url' stale_repos.json > urls.txt
-        cat urls.txt
+      run: echo ${{ needs.identify-stale.outputs.stale-repo }} >> urls.txt
       
     - name: Archive repositories
       run: |
