@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
       
     - name: Run stale_repos tool
       id: stale-repos
@@ -23,7 +23,7 @@ jobs:
       id: print-stale
       run: |
         {
-        echo 'JSON_RESPONSE<<EOF'
+        echo '<<EOF'
         jq -r '.[]' stale_repos.json
         echo EOF
         } >> "$GITHUB_OUTPUT"
