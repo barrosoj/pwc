@@ -26,7 +26,7 @@ jobs:
         echo 'JSON_RESPONSE<<EOF'
         jq -r '.[]' stale_repos.json
         echo EOF
-        } >> "$GITHUB_ENV"
+        } >> "$GITHUB_OUTPUT"
         
   archive-repos:
     name: Archive Stale Repositories
@@ -40,7 +40,7 @@ jobs:
       
     - name: Archive repositories
       run: |
-        cat $GITHUB_ENV
+        cat $GITHUB_OUTPUT
     #    while IFS= read -r url; do
      #     gh repo archive -y "$url"
       #  done < urls.txt
