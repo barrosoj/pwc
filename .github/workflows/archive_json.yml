@@ -40,7 +40,7 @@ jobs:
 
       
     - name: Archive repositories 
-      run: echo "${{needs.identify-stale.repos-url}}
+      run: echo "${{needs.identify-stale.repos-url}}"
     #    while IFS= read -r url; do
      #     gh repo archive -y "$url"
       #  done < urls.txt
