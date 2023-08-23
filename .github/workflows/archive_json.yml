@@ -8,7 +8,7 @@ jobs:
     name: Identify Stale Repositories
     runs-on: ubuntu-latest
     outputs:
-      stale-repo: ${{ steps.stale-repos.outputs }}
+      stale-repo: ${{ steps.print-stale.outputs }}
       
     steps:
     - name: Checkout repository
@@ -22,11 +22,11 @@ jobs:
         INACTIVE_DAYS: 30
         
     - name: Print output of stale_repos tool
+      id: print-stale
       run: |
         jq -r '.[] | .url' stale_repos.json > urls.txt
         cat urls.txt
-      id: print-output
-      
+
   archive-repos:
     name: Archive Stale Repositories
     runs-on: ubuntu-latest
