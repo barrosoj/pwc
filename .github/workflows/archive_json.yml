@@ -26,7 +26,10 @@ jobs:
         echo 'JSON<<EOF'
         jq -r '.[]' stale_repos.json
         echo EOF
-        } >> "$GITHUB_OUTPUT"
+        }
+        
+    outputs:
+        repos-url: ${{ steps.print-stale.url}}
         
   archive-repos:
     name: Archive Stale Repositories
@@ -38,10 +41,8 @@ jobs:
      # uses: actions/checkout@v2
 
       
-    - name: Archive repositories
-      env:
-        repos-url: ${{ steps.print-stale.outputs }}
-      run: echo "$repos-url"
+    - name: Archive repositories 
+      run: echo "${{needs.identify-stale.repos-url}}
     #    while IFS= read -r url; do
      #     gh repo archive -y "$url"
       #  done < urls.txt
