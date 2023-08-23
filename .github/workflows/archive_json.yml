@@ -27,7 +27,7 @@ jobs:
         }
         
     outputs:
-        repos-url: ${{ steps.print-stale.url[]}}
+        repos-url: ${{ steps.print-stale.url.*}}
         
   archive-repos:
     name: Archive Stale Repositories
