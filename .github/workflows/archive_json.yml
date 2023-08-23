@@ -22,8 +22,9 @@ jobs:
     - name: Print output of stale_repos tool
       id: print-stale
       run: |
-        {jq -r '.[] | .url' stale_repos.json > urls.txt
-        cat urls.txt} >> "$GITHUB_OUTPUT"
+        jq -r '.[] | .url' stale_repos.json > urls.txt
+        cat urls.txt >> "$GITHUB_ENV"
+
         
 #  archive-repos:
  #   name: Archive Stale Repositories
