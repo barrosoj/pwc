@@ -31,11 +31,6 @@ jobs:
         } >> stale_repo.json
         cat stale_repo.json
         
-    - name: Create pretty JSON
-      id: prettify-json
-      run: |
-        jq '.' stale_repo.json > pretty_stale_repos.json
-        
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
