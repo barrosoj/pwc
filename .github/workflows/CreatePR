@@ -1,0 +1,47 @@
+name: Stale Repos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  identify-stale:
+    name: Identify Stale Repositories
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.print-stale.outputs.url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Run stale_repos tool
+        id: stale-repos
+        uses: github/stale-repos@v1
+        env:
+          GH_TOKEN: ${{ secrets.ARCHIVE }}
+          INACTIVE_DAYS: 30
+
+      - name: Print output of stale_repos tool
+        id: print-stale
+        run: |
+          {
+            echo 'url<<EOF'
+            jq -r '.[] | .url' stale_repos.json
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create issue
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: Stale repository report
+          content-filepath: ./stale_repos.md
+          token: ${{ secrets.ARCHIVE }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.ARCHIVE }}
+          branch: feature/stale-repo-fixes
+          base: main
+          title: "Fixing Stale Repositories"
+          body: "This pull request addresses the stale repositories mentioned in the issue."
