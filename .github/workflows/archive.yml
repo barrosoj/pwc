@@ -25,9 +25,7 @@ jobs:
       id: print-stale
       run: |
         {
-        echo 'url<<EOF'
         jq -r 'tojson' stale_repos.json
-        echo EOF
         } >> stale_repo.json
         cat stale_repo.json
         
