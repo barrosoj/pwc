@@ -28,11 +28,7 @@ jobs:
             echo 'url<<EOF'
             jq -r '.[] | .url' stale_repos.json
             echo EOF
-            } >> "$GITHUB_OUTPUT"
-
-      - name: Continue
-        run: |
-          echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
+            } > urls.txt
             
       - name: Create Pull Request
         id: cpr
