@@ -28,7 +28,7 @@ jobs:
         echo 'url<<EOF'
         jq -r '.[] | .url' stale_repos.json
         echo EOF
-        } >> toJSON(urls)
+        } > toJSON(urls)
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
