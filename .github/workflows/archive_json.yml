@@ -34,7 +34,7 @@ jobs:
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Stale repository report
-        content-filepath: toJSON(./stale_repos.json)
+        content-filepath: toJSON(stale_repos.json)
         token: ${{ secrets.ARCHIVE }}
         
   #archive-repos:
