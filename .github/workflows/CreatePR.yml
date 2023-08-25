@@ -29,15 +29,7 @@ jobs:
             jq -r '.[] | .url' stale_repos.json
             echo EOF
             } >> "$GITHUB_OUTPUT"
-
-      - name: Continue
-        run: |
-            {
-            echo 'url<<EOF'
-            jq -r '.[] | .url' stale_repos.json
-            echo EOF
-            } >> stale-repos.txt
-           
+            
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -50,7 +42,7 @@ jobs:
           branch: stale-repos
           delete-branch: true
           title: 'Stale Repos Report'
-          body-path: stale_repos.txt 
+          body-path: ${{needs.identify-stale.outputs.repos}} 
           assignees: barrosoj
           labels: bug
  
