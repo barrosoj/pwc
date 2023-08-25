@@ -21,10 +21,19 @@ jobs:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
         
+    - name: Print output of stale_repos tool
+      id: print-stale
+      run: |
+        {
+        echo 'url<<EOF'
+        jq -r '.[] | .url' stale_repos.json
+        echo EOF
+        } > stale_repo.json
+        
     - name: Create pretty JSON
       id: prettify-json
       run: |
-        jq --color-output '.' stale_repos.json > pretty_stale_repos.json
+        jq '.' stale_repo.json > pretty_stale_repos.json
         
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
