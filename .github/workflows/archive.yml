@@ -1,10 +1,34 @@
-name: Archive Repository
+name: Stale Repos v2
+
 on:
   workflow_dispatch:
+
 jobs:
- archive:
+  identify-stale:
+    name: Identify Stale Repositories
     runs-on: ubuntu-latest
+    outputs: 
+      repos: ${{steps.print-stale.outputs.url}}
+
     steps:
-      - run: gh repo archive -y https://github.com/barrosoj/pythonProj
-        env:
-          GH_TOKEN: ${{ secrets.ARCHIVE }}
+    - name: Checkout repository
+      uses: actions/checkout@v1
+      
+    - name: Run stale_repos tool
+      id: stale-repos
+      uses: github/stale-repos@v1
+      env:
+        GH_TOKEN: ${{ secrets.ARCHIVE }}
+        INACTIVE_DAYS: 30
+        
+    - name: Create pretty JSON
+      id: prettify-json
+      run: |
+        jq '.' stale_repos.json > pretty_stale_repos.json
+        
+    - name: Create issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Stale repository report
+        content-filepath: pretty_stale_repos.md
+        token: ${{ secrets.ARCHIVE }}
