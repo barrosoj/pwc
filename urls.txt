@@ -1,0 +1,4 @@
+url<<EOF
+https://github.com/barrosoj/barrosoj.github.io
+https://github.com/barrosoj/pythonProj
+EOF
