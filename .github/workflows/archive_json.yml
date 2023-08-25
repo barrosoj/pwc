@@ -34,22 +34,22 @@ jobs:
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Stale repository report
-        content-filepath: ./stale_repos.md
+        content-filepath: ./stale_repos.json
         token: ${{ secrets.ARCHIVE }}
         
-  archive-repos:
-    name: Archive Stale Repositories
-    runs-on: ubuntu-latest
-    needs: identify-stale
+  #archive-repos:
+ #   name: Archive Stale Repositories
+ #   runs-on: ubuntu-latest
+ #   needs: identify-stale
 
-    steps:
-    - name: Archive repositories 
-      run: |
-        ${{needs.identify-stale.outputs.repos}} > urls.txt
-        while IFS= read -r url; do
-          gh repo archive -y "$url"
-        done < urls.txt
+  #  steps:
+   # - name: Archive repositories 
+    #  run: |
+     #   ${{needs.identify-stale.outputs.repos}} > urls.txt
+      #  while IFS= read -r url; do
+       #   gh repo archive -y "$url"
+        #done < urls.txt
         
-      env:
-        GH_TOKEN: ${{ secrets.ARCHIVE }}
+      #env:
+       # GH_TOKEN: ${{ secrets.ARCHIVE }}
 
