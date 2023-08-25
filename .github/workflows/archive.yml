@@ -24,7 +24,7 @@ jobs:
     - name: Create pretty JSON
       id: prettify-json
       run: |
-        jq '.' stale_repos.json > pretty_stale_repos.json
+        jq --color-output '.' stale_repos.json > pretty_stale_repos.json
         
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
