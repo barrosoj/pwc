@@ -1,4 +1,4 @@
-name: Stale Repos
+name: Create PR of Stale Repos
 
 on:
   workflow_dispatch:
