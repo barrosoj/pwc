@@ -29,6 +29,14 @@ jobs:
             jq -r '.[] | .url' stale_repos.json
             echo EOF
             } >> "$GITHUB_OUTPUT"
+
+      - name: Continue
+        run: |
+            {
+            echo 'url<<EOF'
+            jq -r '.[] | .url' stale_repos.json
+            echo EOF
+            } >> stale-repos.txt
            
       - name: Create Pull Request
         id: cpr
@@ -42,25 +50,25 @@ jobs:
           branch: stale-repos
           delete-branch: true
           title: 'Stale Repos Report'
-          body-path: stale_repos.md 
+          body-path: stale_repos.txt 
           assignees: barrosoj
           labels: bug
  
 
-  archive-repos:
-    name: Archive Stale Repositories
-    runs-on: ubuntu-latest
-    needs: identify-stale
+  #archive-repos:
+   # name: Archive Stale Repositories
+    #runs-on: ubuntu-latest
+    #needs: identify-stale
 
-    steps:
-    - name: Archive repositories 
-      run: |
-        echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
-        while IFS= read -r url; do
-          gh repo archive -y "$url"
-        done < urls.txt
+    #steps:
+    #- name: Archive repositories 
+     # run: |
+      #  echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
+       # while IFS= read -r url; do
+        #  gh repo archive -y "$url"
+        #done < urls.txt
         
-      env:
-        GH_TOKEN: ${{ secrets.ARCHIVE }}
+      #env:
+       # GH_TOKEN: ${{ secrets.ARCHIVE }}
 
 
