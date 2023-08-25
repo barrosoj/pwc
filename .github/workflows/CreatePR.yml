@@ -48,5 +48,5 @@ jobs:
           branch: stale-repos
           delete-branch: true
           title: 'Stale Repos Report'
-          body-path: stale-repos.md
+          body-path: stale_repos.md
           assignees: barrosoj
