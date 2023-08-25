@@ -21,15 +21,6 @@ jobs:
           GH_TOKEN: ${{ secrets.ARCHIVE }}
           INACTIVE_DAYS: 30
 
-      - name: Print output of stale_repos tool
-        id: print-stale
-        run: |
-          {
-            echo 'url<<EOF'
-            jq -r '.[] | .url' stale_repos.json
-            echo EOF
-          } >> "$GITHUB_OUTPUT"
-
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -42,5 +33,6 @@ jobs:
           branch: stale-repos
           delete-branch: true
           title: 'Stale Repos Report'
-          body-path: stale_repos.md
+          body-path: stale_repos.md 
           assignees: barrosoj
+          labels: bug
