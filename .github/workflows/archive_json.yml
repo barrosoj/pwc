@@ -28,13 +28,13 @@ jobs:
         echo 'url<<EOF'
         jq -r '.[] | .url' stale_repos.json
         echo EOF
-        } >> "$GITHUB_OUTPUT"
+        } >> toJSON(urls)
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Stale repository report
-        content-filepath: toJSON(stale_repos.json)
+        content-filepath: urls.json
         token: ${{ secrets.ARCHIVE }}
         
   #archive-repos:
