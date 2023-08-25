@@ -28,7 +28,8 @@ jobs:
         echo 'url<<EOF'
         jq -r '.[] | .url' stale_repos.json
         echo EOF
-        } > stale_repo.json
+        } >> stale_repo.json
+        cat stale_repo.json
         
     - name: Create pretty JSON
       id: prettify-json
