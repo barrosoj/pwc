@@ -26,7 +26,7 @@ jobs:
       run: |
         {
         echo 'url<<EOF'
-        jq -r '.[]' stale_repos.json
+        jq -r '.[] | keys[0]' stale_repos.json
         echo EOF
         } >> stale_repo.json
         cat stale_repo.json
