@@ -21,6 +21,15 @@ jobs:
           GH_TOKEN: ${{ secrets.ARCHIVE }}
           INACTIVE_DAYS: 30
 
+      - name: Continue
+        id: print-stale
+        run: |
+            {
+            echo 'url<<EOF'
+            jq -r '.[] | .url' stale_repos.json
+            echo EOF
+            } >> "$GITHUB_OUTPUT"
+           
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -36,16 +45,7 @@ jobs:
           body-path: stale_repos.md 
           assignees: barrosoj
           labels: bug
-
-      - name: Continue
-        id: print-stale
-        run: |
-            {
-            echo 'url<<EOF'
-            jq -r '.[] | .url' stale_repos.json
-            echo EOF
-            } >> "$GITHUB_OUTPUT"
-            
+ 
 
   archive-repos:
     name: Archive Stale Repositories
