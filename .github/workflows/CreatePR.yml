@@ -25,9 +25,7 @@ jobs:
         id: print-stale
         run: |
             {
-            echo 'url<<EOF'
             jq -r '.[] | .url' stale_repos.json
-            echo EOF
             } > urls.txt
             
       - name: Create Pull Request
