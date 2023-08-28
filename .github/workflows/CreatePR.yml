@@ -20,6 +20,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ARCHIVE }}
           INACTIVE_DAYS: 30
+          
+      - name: Print output of stale_repos tool
+        id: print-stale
+        run: |
+          {
+          echo 'url<<EOF'
+          jq -r '.[] | .url' stale_repos.json
+          echo EOF
+          } >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         id: cpr
@@ -37,21 +46,20 @@ jobs:
           assignees: barrosoj
           labels: bug
  
+  archive-repos:
+    name: Archive Stale Repositories
+    runs-on: ubuntu-latest
+    needs: identify-stale
 
-  #archive-repos:
-   # name: Archive Stale Repositories
-    #runs-on: ubuntu-latest
-    #needs: identify-stale
-
-    #steps:
-    #- name: Archive repositories 
-     # run: |
-      #  echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
-       # while IFS= read -r url; do
-        #  gh repo archive -y "$url"
-        #done < urls.txt
+    steps:
+    - name: Archive repositories 
+      run: |
+        echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
+        while IFS= read -r url; do
+          gh repo archive -y "$url"
+        done < urls.txt
         
-      #env:
-       # GH_TOKEN: ${{ secrets.ARCHIVE }}
+      env:
+        GH_TOKEN: ${{ secrets.ARCHIVE }}
 
 
