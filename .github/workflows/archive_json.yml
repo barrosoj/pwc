@@ -45,11 +45,10 @@ jobs:
     steps:
     - name: Archive repositories 
       run: |
-        ${{needs.identify-stale.outputs.repos}} > urls.txt
+        echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
         while IFS= read -r url; do
           gh repo archive -y "$url"
-        #done < urls.txt
+        done < urls.txt
         
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
-
