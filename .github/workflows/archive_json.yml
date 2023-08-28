@@ -30,16 +30,9 @@ jobs:
         echo EOF
         } >> $GITHUB_OUTPUT
 
-    - name: Create issue
-      uses: peter-evans/create-issue-from-file@v4
-      with:
-        title: Stale repository report
-        content-filepath: stale_repos.md
-        token: ${{ secrets.ARCHIVE }}
-        
     - name: Generate dynamic artifact name
       id: generate-name
-      run: echo "ARTIFACT_NAME=$(date +'%Y-%m-%d-%H-%M-%S')-stale-repos.json" >> $GITHUB_ENV
+      run: echo "ARTIFACT_NAME=stale-repos-$(date +'%Y-%m-%d')-.json" >> $GITHUB_ENV
 
     - name: Save JSON file as artifact
       uses: actions/upload-artifact@v2
