@@ -31,8 +31,7 @@ jobs:
         echo EOF
         } >> $GITHUB_OUTPUT
         cat stale_repos.md >> $GITHUB_STEP_SUMMARY
-        cat urls.txt
-
+        
     - name: Generate dynamic artifact name
       id: generate-name
       run: echo "ARTIFACT_NAME=stale-repos-$(date +'%Y-%m-%d')-.json" >> $GITHUB_ENV
