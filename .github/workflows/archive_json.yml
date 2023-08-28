@@ -42,18 +42,11 @@ jobs:
         name: ${{ env.ARTIFACT_NAME }}
         path: stale_repos.json
         
-  archive-repos:
-    name: Archive Stale Repositories
-    runs-on: ubuntu-latest
-    needs: identify-stale
-
-    steps:
     - name: Archive repositories 
       run: |
         echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
         while IFS= read -r url; do
           gh repo archive -y "$url"
-        done < urls.txt
-        
+        done < urls.txt  
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
