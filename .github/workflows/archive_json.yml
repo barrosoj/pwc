@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.ARTIFACT_NAME }}
-        path: path/to/stale_repos.json
+        path: stale_repos.json
         
   archive-repos:
     name: Archive Stale Repositories
