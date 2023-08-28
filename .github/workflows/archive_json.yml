@@ -37,11 +37,15 @@ jobs:
         content-filepath: stale_repos.md
         token: ${{ secrets.ARCHIVE }}
         
+    - name: Generate dynamic artifact name
+      id: generate-name
+      run: echo "ARTIFACT_NAME=$(date +'%Y-%m-%d-%H-%M-%S')-stale-repos.json" >> $GITHUB_ENV
+
     - name: Save JSON file as artifact
       uses: actions/upload-artifact@v2
       with:
-        name: stale-repos-artifact
-        path: stale_repos.json
+        name: ${{ env.ARTIFACT_NAME }}
+        path: path/to/stale_repos.json
         
   archive-repos:
     name: Archive Stale Repositories
