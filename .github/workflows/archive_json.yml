@@ -20,6 +20,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
+        EXEMPT_TOPICS: "archive-false"
         
     - name: Print output of stale_repos tool
       id: print-stale
@@ -35,7 +36,7 @@ jobs:
       run: echo "ARTIFACT_NAME=stale-repos-$(date +'%Y-%m-%d')-.json" >> $GITHUB_ENV
 
     - name: Save JSON file as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: stale_repos.json
