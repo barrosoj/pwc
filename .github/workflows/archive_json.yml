@@ -44,7 +44,7 @@ jobs:
         
     - name: Archive repositories 
       run: |
-        echo urls.txt
+        cat urls.txt
         while IFS= read -r url; do
           gh repo archive -y "$url"
         done < urls.txt  
