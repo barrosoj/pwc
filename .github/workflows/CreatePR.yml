@@ -33,7 +33,7 @@ jobs:
           branch: stale-repos
           delete-branch: true
           title: 'Stale Repos Report'
-          body-path: stale_repos.json, stale_repos.md 
+          body-path: stale_repos.md 
           assignees: barrosoj
           labels: bug
  
