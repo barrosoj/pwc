@@ -29,7 +29,7 @@ jobs:
         echo 'url<<EOF'
         jq -r '.[] | .url' stale_repos.json
         echo EOF
-        } >> urls.txt
+        } >> $GITHUB_OUTPUT
         cat stale_repos.md >> $GITHUB_STEP_SUMMARY
         cat urls.txt
 
@@ -45,6 +45,7 @@ jobs:
         
     - name: Archive repositories 
       run: |
+        echo "${{needs.identify-stale.outputs.repos}}" > urls.txt
         while IFS= read -r url; do
           gh repo archive -y "$url"
         done < urls.txt  
