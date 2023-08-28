@@ -37,6 +37,12 @@ jobs:
         content-filepath: stale_repos.md
         token: ${{ secrets.ARCHIVE }}
         
+    - name: Save JSON file as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: stale-repos-artifact
+        path: stale_repos.json
+        
   archive-repos:
     name: Archive Stale Repositories
     runs-on: ubuntu-latest
