@@ -25,11 +25,7 @@ jobs:
     - name: Print output of stale_repos tool
       id: print-stale
       run: |
-        {
-        echo 'url<<EOF'
-        jq -r '.[] | .url' stale_repos.json
-        echo EOF
-        } >> urls.txt
+        jq -r '.[] | .url' stale_repos.json >> urls.txt
         cat stale_repos.md >> $GITHUB_STEP_SUMMARY
         
     - name: Generate dynamic artifact name
