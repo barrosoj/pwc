@@ -21,14 +21,6 @@ jobs:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
         
-    - name: Print output of stale_repos tool
-      id: print-stale
-      run: |
-        {
-        jq -r 'tojson' stale_repos.json
-        } >> stale_repo.json
-        cat stale_repo.json
-        
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
