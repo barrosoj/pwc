@@ -33,5 +33,5 @@ jobs:
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Stale repository report
-        content-filepath: ./stale_repo.json
+        content-filepath: ./stale_repo.md
         token: ${{ secrets.ARCHIVE }}
