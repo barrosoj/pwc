@@ -20,6 +20,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.ARCHIVE }}
         INACTIVE_DAYS: 30
+        EXEMPT_TOPICS: 'archive-false'
         
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
